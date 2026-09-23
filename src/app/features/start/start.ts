@@ -5,6 +5,7 @@ import { ModeCard } from '../../shared/mode-card/mode-card';
 import { AppIcon } from '../../shared/icons/icon';
 import { GameStateService } from '../../core/game-state.service';
 import { SpeechService } from '../../core/speech.service';
+import { SoundService } from '../../core/sound.service';
 import { GameMode } from '../../core/theme';
 
 const PARENT_GATE_HOLD_MS = 2000;
@@ -20,6 +21,7 @@ export class Start {
   private readonly router = inject(Router);
   private readonly gameState = inject(GameStateService);
   private readonly speech = inject(SpeechService);
+  private readonly sound = inject(SoundService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly mode = this.gameState.mode;
@@ -45,12 +47,14 @@ export class Start {
 
   startGame(): void {
     this.speech.unlock();
+    this.sound.unlock();
     this.gameState.startFromLevel();
     this.router.navigateByUrl('/play');
   }
 
   onFirstTouch(): void {
     this.speech.unlock();
+    this.sound.unlock();
     this.trySpeakGreeting();
   }
 

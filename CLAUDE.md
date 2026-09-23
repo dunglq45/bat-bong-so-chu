@@ -57,6 +57,15 @@ not in components.
 (done in Welcome/Start on first touch/continue) before `speak()` will reliably produce sound.
 No-ops silently when not in a browser or when speechSynthesis is unavailable.
 
+### Sound effects
+[src/app/core/sound.service.ts](src/app/core/sound.service.ts) synthesizes short bell "ding"
+chimes with the Web Audio API (oscillators + gain envelopes, inharmonic partials for a bell-like
+timbre) — no audio asset files, so it stays fully offline for the PWA. `playCorrect()` (bright,
+two-note) and `playWrong()` (a single softer, lower note — never a harsh error buzzer, per the
+"no failure feeling" design principle) are called from `Play.onCatch()`. Same autoplay
+restriction as speech: `unlock()` must run from a user gesture, and is called alongside
+`SpeechService.unlock()` at the same call sites.
+
 ### Play screen mechanics
 [src/app/features/play/play.ts](src/app/features/play/play.ts) is the core game loop: it spawns
 balloons into fixed "lanes" (`maxBalloons` = 4 on phone / 6 otherwise) on an interval, tracks a

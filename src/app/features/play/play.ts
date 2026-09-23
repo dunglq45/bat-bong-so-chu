@@ -5,6 +5,7 @@ import { Mascot } from '../../shared/mascot/mascot';
 import { AppIcon } from '../../shared/icons/icon';
 import { GameStateService } from '../../core/game-state.service';
 import { SpeechService } from '../../core/speech.service';
+import { SoundService } from '../../core/sound.service';
 import { BalloonColorName, CORRECT_CATCHES_PER_LEVEL, MOTION, PRAISE_PHRASES, randomBalloonColor, randomItem } from '../../core/theme';
 
 interface BalloonVM {
@@ -41,6 +42,7 @@ export class Play {
   private readonly router = inject(Router);
   private readonly gameState = inject(GameStateService);
   private readonly speech = inject(SpeechService);
+  private readonly sound = inject(SoundService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly mode = this.gameState.mode;
@@ -92,6 +94,7 @@ export class Play {
     this.resetHintTimer();
 
     if (b.value === this.target()) {
+      this.sound.playCorrect();
       this.setBalloonState(b.id, 'correct');
       this.gameState.addStars(1);
       this.correctCount.update((v) => v + 1);
@@ -106,6 +109,7 @@ export class Play {
         this.pickNextTarget();
       }
     } else {
+      this.sound.playWrong();
       this.setBalloonState(b.id, 'wrong');
       this.scheduleRemoval(b.id, MOTION.wobbleMs, () => this.setBalloonState(b.id, 'flying'));
       this.speakPrompt();
