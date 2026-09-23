@@ -1,0 +1,35 @@
+<div
+  class="balloon-slot"
+  [style.left.%]="leftPercent()"
+  [style.animation-duration.ms]="durationMs()"
+  [class.balloon-slot--paused]="state() === 'correct'"
+  (animationend)="onRiseEnd()"
+>
+  <div class="balloon-sway">
+    <button
+      type="button"
+      class="balloon"
+      [class.balloon--wrong]="state() === 'wrong'"
+      [class.balloon--correct]="state() === 'correct'"
+      [class.balloon--hint]="hinted()"
+      [style.width.px]="size()"
+      [style.--hl]="palette.highlight"
+      [style.--base]="palette.base"
+      [style.--shade]="palette.shade"
+      [attr.aria-label]="'Bóng ' + value()"
+      (pointerdown)="onPointerDown($event)"
+      (keydown)="onKeydown($event)"
+    >
+      <span class="balloon__label" [style.font-size.px]="size() * 0.42">{{ value() }}</span>
+      <span class="balloon__knot" aria-hidden="true"></span>
+      <span class="balloon__string" aria-hidden="true"></span>
+    </button>
+    @if (state() === 'correct') {
+      <span class="burst" aria-hidden="true">
+        @for (angle of particles; track angle) {
+          <span class="burst__star" [style.--angle.deg]="angle">★</span>
+        }
+      </span>
+    }
+  </div>
+</div>

@@ -1,0 +1,165 @@
+.balloon-slot {
+  position: absolute;
+  bottom: -22%;
+  transform: translateX(-50%);
+  animation-name: rise;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: transform;
+}
+
+.balloon-slot--paused {
+  animation-play-state: paused;
+}
+
+@keyframes rise {
+  from {
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    transform: translateX(-50%) translateY(-145vh);
+  }
+}
+
+.balloon-sway {
+  position: relative;
+  animation: sway 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes sway {
+  0% {
+    transform: translateX(-12px);
+  }
+  100% {
+    transform: translateX(12px);
+  }
+}
+
+.balloon {
+  position: relative;
+  appearance: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 120ms var(--ease-pop);
+}
+
+.balloon__string {
+  position: absolute;
+  left: 50%;
+  bottom: -34px;
+  width: 4px;
+  height: 40px;
+  transform: translateX(-50%);
+  background: rgba(30, 42, 90, 0.35);
+  border-radius: 2px;
+}
+
+.balloon__knot {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 14px;
+  height: 10px;
+  transform: translateX(-50%);
+  background: var(--shade);
+  border-radius: 4px;
+}
+
+.balloon--hint::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 5px dashed var(--cloud);
+  animation: hint-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.55;
+  }
+}
+
+.balloon--wrong {
+  animation: wobble 300ms ease-in-out;
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-8px) rotate(-4deg);
+  }
+  75% {
+    transform: translateX(8px) rotate(4deg);
+  }
+}
+
+.balloon--correct {
+  animation: pop 400ms var(--ease-pop) forwards;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  55% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+.burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.burst__star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--sun-shade);
+  transform: rotate(var(--angle)) translate(0, 0);
+  animation: burst-out 600ms var(--ease-pop) forwards;
+  animation-delay: 150ms;
+}
+
+@keyframes burst-out {
+  from {
+    transform: rotate(var(--angle)) translate(0, -6px);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(var(--angle)) translate(0, -52px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .balloon-sway {
+    animation: none;
+  }
+  .balloon--hint::before {
+    animation: none;
+  }
+}

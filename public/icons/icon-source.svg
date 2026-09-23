@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5CC8FF"/>
+      <stop offset="60%" stop-color="#A8E2FF"/>
+      <stop offset="100%" stop-color="#D6F3FF"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFE58A"/>
+      <stop offset="55%" stop-color="#FFC93C"/>
+      <stop offset="100%" stop-color="#E0A21A"/>
+    </radialGradient>
+    <radialGradient id="balloon" cx="32%" cy="28%" r="80%">
+      <stop offset="0%" stop-color="#FFC2D4"/>
+      <stop offset="42%" stop-color="#FF5C8A"/>
+      <stop offset="100%" stop-color="#E23D6D"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#sky)"/>
+  <circle cx="352" cy="148" r="76" fill="url(#sun)"/>
+  <path d="M0 392 Q256 300 512 392 L512 512 L0 512 Z" fill="#6FD36A"/>
+  <ellipse cx="204" cy="300" rx="92" ry="110" fill="url(#balloon)"/>
+  <circle cx="204" cy="300" r="55" fill="#FFFDF7"/>
+  <text x="204" y="322" font-family="'Baloo 2','Trebuchet MS',sans-serif" font-weight="800" font-size="64" fill="#1E2A5A" text-anchor="middle">5</text>
+  <rect x="197" y="404" width="14" height="10" rx="3" fill="#E23D6D"/>
+</svg>

@@ -1,0 +1,82 @@
+.mode-card {
+  position: relative;
+  width: 250px;
+  height: 170px;
+  border-radius: var(--radius-lg);
+  border: 6px solid var(--cloud);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: transform 120ms, border-color 120ms;
+  box-shadow: var(--soft-drop);
+}
+
+.mode-card:active {
+  transform: translateY(4px);
+}
+
+.mode-card--number {
+  background: var(--mode-number);
+}
+
+.mode-card--letter {
+  background: var(--mode-letter);
+}
+
+.mode-card--selected {
+  border-color: var(--ink);
+}
+
+.mode-card__glyph {
+  font: 800 64px/1 var(--font-display);
+  color: var(--ink);
+}
+
+.mode-card__label {
+  font: 800 30px/1.2 var(--font-body);
+  color: var(--ink);
+}
+
+.mode-card__tick {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--cloud);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 0 rgba(30, 42, 90, 0.25);
+}
+
+@media (max-width: 600px) {
+  .mode-card {
+    width: 130px;
+    height: 124px;
+    border-radius: var(--radius-md);
+    gap: 2px;
+  }
+
+  .mode-card__glyph {
+    font-size: 40px;
+  }
+
+  .mode-card__label {
+    font-size: 18px;
+  }
+
+  .mode-card__tick {
+    width: 34px;
+    height: 34px;
+    top: -10px;
+    right: -10px;
+  }
+}

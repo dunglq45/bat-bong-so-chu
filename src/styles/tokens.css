@@ -1,0 +1,28 @@
+:root {
+  --sky-top: #5CC8FF; --sky-mid: #A8E2FF; --sky-bottom: #D6F3FF;
+  --sky: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 60%, var(--sky-bottom) 100%);
+  --cloud: #FFFDF7; --ink: #1E2A5A; --ink-soft: #3A4670;
+  --sun: #FFC93C; --sun-shade: #E0A21A; --grass: #6FD36A;
+  --mode-number: #FF8A3D; --mode-letter: #FF6FAE; --speaker: #3D9BFF;
+  --scrim: rgba(30, 42, 90, 0.35);
+  --soft-drop: 0 6px 0 rgba(30, 42, 90, 0.12);
+
+  --radius-sm: 16px; --radius-md: 24px; --radius-lg: 32px; --radius-xl: 48px; --radius-pill: 999px;
+  --tap-min: 64px; --tap-comfort: 88px;
+  --balloon: clamp(96px, 13vw, 180px);
+
+  --font-display: 'Baloo 2', 'Trebuchet MS', sans-serif;
+  --font-body: 'Nunito', Verdana, sans-serif;
+
+  --press: translateY(6px);
+  --ease-pop: cubic-bezier(.34, 1.56, .64, 1);
+}
+/* Balloon helper: set --hl / --base / --shade per balloon */
+.balloon { width: var(--balloon); aspect-ratio: 1 / 1.2; border-radius: 50%;
+  background: radial-gradient(ellipse at 32% 28%, var(--hl) 0%, var(--base) 42%, var(--shade) 100%);
+  box-shadow: 0 8px 0 rgba(30, 42, 90, 0.12); display: grid; place-items: center; }
+.balloon__label { width: 60%; aspect-ratio: 1; border-radius: 50%; background: var(--cloud); display: grid; place-items: center;
+  font: 800 calc(var(--balloon) * 0.42) / 1 var(--font-display); color: var(--ink); }
+.btn-candy { background: var(--sun); color: var(--ink); border-radius: var(--radius-pill); box-shadow: 0 10px 0 var(--sun-shade);
+  font: 800 40px/1 var(--font-display); transition: transform 120ms, box-shadow 120ms; }
+.btn-candy:active { transform: var(--press); box-shadow: 0 4px 0 var(--sun-shade); }

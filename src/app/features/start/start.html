@@ -1,0 +1,58 @@
+<div class="scene" (pointerdown)="onFirstTouch()">
+  <div class="scene__sky">
+    <div class="cloud cloud--1"></div>
+    <div class="cloud cloud--2"></div>
+    <div class="sun"></div>
+
+    <button
+      type="button"
+      class="parent-btn"
+      aria-label="Góc phụ huynh, giữ 2 giây để mở"
+      (pointerdown)="beginHold()"
+      (pointerup)="clearHold()"
+      (pointerleave)="clearHold()"
+      (pointercancel)="clearHold()"
+    >
+      <span
+        class="parent-btn__ring"
+        [style.background]="'conic-gradient(var(--ink) ' + parentGateProgress() * 360 + 'deg, transparent 0)'"
+      ></span>
+      <app-icon name="settings" [size]="34" />
+    </button>
+
+    <h1 class="logo">Bắt Bóng<br />Số &amp; Chữ</h1>
+
+    <div class="content-row">
+      <div class="modes" role="radiogroup" aria-label="Chọn chế độ chơi">
+        <app-mode-card mode="number" glyph="123" label="Học Số" [selected]="mode() === 'number'" (picked)="pickMode($event)" />
+        <app-mode-card mode="letter" glyph="ABC" label="Học Chữ" [selected]="mode() === 'letter'" (picked)="pickMode($event)" />
+      </div>
+
+      <div class="mascot-wrap">
+        <div class="speech-bubble">{{ greeting() }}</div>
+        <app-mascot variant="wave" [size]="160" [bounce]="true" />
+      </div>
+    </div>
+  </div>
+
+  <div class="scene__hill">
+    <button type="button" class="btn-candy start-btn" (click)="startGame()">
+      <app-icon name="play" [size]="28" />
+      <span>Bắt đầu chơi</span>
+    </button>
+  </div>
+</div>
+
+@if (parentGateOpen()) {
+  <div class="parent-gate" role="dialog" aria-modal="true" aria-label="Góc phụ huynh">
+    <div class="parent-gate__card">
+      <h2>Góc phụ huynh</h2>
+      <p>Bắt Bóng Số &amp; Chữ — game học đếm số và bảng chữ cái tiếng Việt cho bé 3–6 tuổi.</p>
+      <div class="parent-gate__actions">
+        <button type="button" class="btn-ghost" (click)="changeName()">Đổi tên bé</button>
+        <button type="button" class="btn-ghost" (click)="resetProgress()">Đặt lại tiến trình</button>
+        <button type="button" class="btn-candy btn-candy--compact" (click)="closeParentGate()">Đóng</button>
+      </div>
+    </div>
+  </div>
+}

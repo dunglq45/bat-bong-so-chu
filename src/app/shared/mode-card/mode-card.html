@@ -1,0 +1,18 @@
+<button
+  type="button"
+  class="mode-card"
+  [class.mode-card--number]="mode() === 'number'"
+  [class.mode-card--letter]="mode() === 'letter'"
+  [class.mode-card--selected]="selected()"
+  role="radio"
+  [attr.aria-checked]="selected()"
+  (click)="onPick()"
+>
+  @if (selected()) {
+    <span class="mode-card__tick" aria-hidden="true">
+      <app-icon name="check" [size]="24" />
+    </span>
+  }
+  <span class="mode-card__glyph">{{ glyph() }}</span>
+  <span class="mode-card__label">{{ label() }}</span>
+</button>

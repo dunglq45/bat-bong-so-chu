@@ -1,0 +1,102 @@
+<div class="scene">
+  <div class="hud">
+    <button type="button" class="icon-btn hud__home" aria-label="Về màn hình chính" (click)="openHomeConfirm()">
+      <app-icon name="home" [size]="34" />
+    </button>
+
+    <button type="button" class="request-pill" (click)="speakPrompt()">
+      <span class="request-pill__speaker">
+        <app-icon name="speaker" [size]="22" />
+      </span>
+      <span class="request-pill__text">{{ promptLabel() }}</span>
+      <span
+        class="request-pill__chip"
+        [class.request-pill__chip--number]="mode() === 'number'"
+        [class.request-pill__chip--letter]="mode() === 'letter'"
+        >{{ target() }}</span
+      >
+    </button>
+
+    <div class="hud__badges">
+      <span class="badge">Màn {{ levelIndex() + 1 }}/{{ levelCount() }}</span>
+      <span class="badge badge--star">
+        <app-icon name="star" [size]="20" />
+        {{ totalStars() }}
+      </span>
+    </div>
+  </div>
+
+  <div class="play-area">
+    @for (b of balloons(); track b.id) {
+      <app-balloon
+        [value]="b.value"
+        [color]="b.color"
+        [size]="isPhone() ? 100 : 130"
+        [durationMs]="b.durationMs"
+        [leftPercent]="b.leftPercent"
+        [state]="b.state"
+        [hinted]="balloonHinted(b)"
+        [isPhone]="isPhone()"
+        (caught)="onCatch(b)"
+        (reachedTop)="onReachedTop(b)"
+      />
+    }
+
+    <div class="ground">
+      @if (!isPhone() || hintActive()) {
+        <app-mascot class="ground__mascot" variant="wave" [size]="isPhone() ? 84 : 110" [bounce]="mascotBounce()" />
+      }
+    </div>
+  </div>
+</div>
+
+@if (showHomeConfirm()) {
+  <div class="confirm-overlay" role="dialog" aria-modal="true" aria-label="Thoát về màn hình chính?">
+    <div class="confirm-card">
+      <button type="button" class="confirm-btn confirm-btn--home" aria-label="Về màn hình chính" (click)="confirmHome()">
+        <app-icon name="home" [size]="52" />
+      </button>
+      <button type="button" class="confirm-btn confirm-btn--play" aria-label="Chơi tiếp" (click)="cancelHomeConfirm()">
+        <app-icon name="play" [size]="52" />
+      </button>
+    </div>
+  </div>
+}
+
+@if (showLevelUp()) {
+  <div class="levelup-overlay">
+    <div class="confetti">
+      @for (c of confetti(); track $index) {
+        <span
+          class="confetti__piece"
+          [style.left.%]="c.left"
+          [style.animation-delay.ms]="c.delay"
+          [style.animation-duration.ms]="c.duration"
+          [style.background]="c.color"
+          [style.--rot.deg]="c.rotate"
+        ></span>
+      }
+    </div>
+    <div class="static-stars" aria-hidden="true">
+      <app-icon name="star" [size]="40" />
+      <app-icon name="star" [size]="56" />
+      <app-icon name="star" [size]="40" />
+    </div>
+
+    <div class="levelup-card">
+      <div class="levelup-card__stars">
+        <app-icon name="star" [size]="48" />
+        <app-icon name="star" [size]="64" />
+        <app-icon name="star" [size]="48" />
+      </div>
+      <h2 class="levelup-card__praise">{{ praiseText() }}</h2>
+      <p class="levelup-card__sub">Con đã qua Màn {{ levelIndex() + 1 }}</p>
+      <button type="button" class="btn-candy levelup-card__continue" (click)="continueAfterLevelUp()">
+        <app-icon name="play" [size]="26" />
+        <span>Tiếp tục</span>
+      </button>
+    </div>
+
+    <app-mascot class="levelup-mascot" variant="party" [size]="isPhone() ? 110 : 160" [bounce]="true" />
+  </div>
+}
