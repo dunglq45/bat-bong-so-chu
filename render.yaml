@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: bat-bong-so-chu
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: node dist/gameStudy/server/server.mjs
+    envVars:
+      - key: NODE_VERSION
+        value: 22
